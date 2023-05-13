@@ -1,0 +1,587 @@
+            <html>
+
+            <head>
+                <title>About Jordan</title>
+
+                <link rel="stylesheet" type="text/css" href="JORDAN.css">
+<script type="text/javascript" >
+    // 'use strict';
+// variables
+let main = document.getElementById('bookbook');
+
+let select1 = document.getElementById('computer science');
+
+// eslint-disable-next-line no-unused-vars
+let optinon1 = ['computer science', 'Web Design and Development', 'Computer Coding for Kids'];// category name
+// eslint-disable-next-line no-unused-vars
+let option2 = [];// price
+// books list
+
+Book.allbooks = [];
+function Book(src, category, name, price) {
+  this.name = name;
+  this.src = src;
+  this.price = price;
+  this.category = category;
+  this.quantity=0;
+  Book.allbooks.push(this);
+  
+}
+
+
+new Book('imges/logic programin.jpg', 'Computer science', ' logic programing', 19);
+new Book('imges/logic cs.jpg', 'Computer science', 'Computer science ', 35);
+new Book('imges/How to make an Operating System.jpg', 'Computer science', 'How to make an Operating System ', 80);
+new Book('imges/Operating Systems.jpeg', 'Computer science', 'Operating Systems: Three Easy Pieces ', 12);
+new Book('imges/An Introduction to Statistical Learning with Applications in R.jpg', 'Computer science', 'An Introduction to Statistical Learning with Applications in R', 16);
+new Book('imges/A Whirlwind Tour of Python.jpg', 'Computer science', ' Whirlwind Tour of Python ', 23);
+new Book('imges/AngularJS Essentials.jpg', 'Web Design and Development', 'AngularJS Essentials', 77);
+new Book('imges/Building Front-End Web Apps with Plain JavaScript.png', 'Web Design and Development', 'Building Front-End Web Apps with Plain JavaScript', 12);
+new Book('imges/Mobile Developer\'s Guide to The Galaxy.jpg', 'Web Design and Development', 'Mobile Developer\'s Guide to The Galaxy', 33);
+new Book('imges/Learning JavaScript Design Patterns.jpg', 'Web Design and Development', 'Learning JavaScript Design Patterns', 38);
+new Book('imges/Just Ask- Integrating Accessibility Throughout Design.jpg', 'Web Design and Development', 'Just Ask Integrating Accessibility Throughout Design', 95);
+new Book('imges/Adaptive Web Design.jpg', 'Web Design and Development', 'Adaptive Web Design', 22);
+new Book('imges/Coding for Kids.jpg', 'Computer Coding for Kids', 'Coding for Kids', 11);
+new Book('imges/How To Be a Coder.jpg', 'Computer Coding for Kids', 'How To Be a Coder', 12);
+new Book('imges/First Coding Book for Kids.jpg', 'Computer Coding for Kids', 'First Coding Book for Kids', 26);
+new Book('imges/Computer Coding for Kids.jpg', 'Computer Coding for Kids', 'Computer Coding for Kids', 10);
+new Book('imges/Baby Loves Coding.jpg', 'Computer Coding for Kids', 'Baby Loves Coding', 65);
+new Book('imges/Can You Crack the Code.jpg', 'Computer Coding for Kids', 'Can You Crack the Code', 23);
+
+
+let input;
+let cartArray = [];
+Book.prototype.renderBooks = function () {
+  
+  let span = document.createElement('div');
+  main.appendChild(span);
+  let imgelement1 = document.createElement('img');
+  imgelement1.setAttribute('src', this.src);
+  span.appendChild(imgelement1);
+ 
+  let h2category = document.createElement('h2');
+  span.appendChild(h2category);
+  h2category.textContent = this.category;
+  let pBookName = document.createElement('h3');
+  span.appendChild(pBookName);
+  pBookName.textContent = this.name;
+  let pBookPrice = document.createElement('h4');
+  span.appendChild(pBookPrice);
+  pBookPrice.textContent =`${ this.price} JD` ;
+  let pBookdescrption = document.createElement('p');
+  span.appendChild(pBookdescrption);
+  pBookdescrption.textContent = this.aboutBook;
+  // butoon event listener
+  input = document.createElement('button');
+  span.appendChild(input);
+  input.textContent = 'Add To Cart';
+ 
+  let object = this;
+  input.addEventListener('click', userClick);
+  // eslint-disable-next-line no-unused-vars
+  function userClick(event) {
+event.preventDefault();
+alert(`${object.name} book added to your cart`)  
+    if (!cartArray.includes(object) ) {
+      cartArray.push(object);
+    }
+    
+    object.quantity++;
+    
+    cartArrayStorge();
+  }
+  // }
+};
+for (let i = 0; i < Book.allbooks.length; i++) {
+  Book.allbooks[i].renderBooks();
+}
+
+
+let select = document.getElementById('list');
+
+
+select.addEventListener('change', filterSelection);
+// eslint-disable-next-line no-unused-vars
+function filterSelection(event) {
+
+
+
+  let selectedValue = select.value;
+
+  let x = document.getElementsByTagName('div');
+  for (let i = 0; i < x.length; i++) {
+    x[i].classList.remove('hide');
+    let categoryName = x[i].childNodes[1].innerHTML;
+
+    
+    if (selectedValue !== categoryName) {
+
+
+    
+      let spanClass = x[i].classList.add('hide');
+
+    }
+  }
+
+}
+
+// add event listener for the price selection
+
+
+let selectprice = document.getElementById("Price");
+
+
+selectprice.addEventListener('change', filterSelectionPrice);
+function filterSelectionPrice(event) {
+
+
+  let selectedValuePrice = selectprice.value;
+  let x = document.getElementsByTagName("div");
+  for (let i = 0; i < x.length; i++) {
+    x[i].classList.remove('hide');
+    let bookprice = x[i].childNodes[3].innerHTML;
+
+    if (selectedValuePrice === 'Less Than 20 JD') {
+      if (Book.allbooks[i].price < 20) {
+        // eslint-disable-next-line no-unused-vars
+        let spanClass1 = x[i].classList.remove('hide');
+      }
+      if (Book.allbooks[i].price >= 20 && Book.allbooks[i].price <= 40) {
+        // eslint-disable-next-line no-unused-vars
+        let spanClass2 = x[i].classList.add('hide');
+      }
+      if (Book.allbooks[i].price > 40) {
+        let spanClass3 = x[i].classList.add('hide');
+      }
+    }
+
+    else if (selectedValuePrice === '21 - 40 JD') {
+      if (Book.allbooks[i].price < 20) {
+        let spanClass2 = x[i].classList.add('hide');
+      }
+      if (Book.allbooks[i].price >= 20 && Book.allbooks[i].price <= 40) {
+        let spanClass2 = x[i].classList.remove('hide');
+      }
+      if (Book.allbooks[i].price > 40) {
+        let spanClass2 = x[i].classList.add('hide');
+      }
+    }
+
+    else {
+      if (Book.allbooks[i].price < 20) {
+        let spanClass2 = x[i].classList.add('hide')
+      }
+      if (Book.allbooks[i].price >= 20 && Book.allbooks[i].price <= 40) {
+        let spanClass2 = x[i].classList.add('hide')
+      }
+      if (Book.allbooks[i].price > 40) {
+        let spanClass2 = x[i].classList.remove('hide')
+      }
+    }
+  }
+}
+
+//event listener for each button
+function cartArrayStorge() {
+
+  let strigcartArr = JSON.stringify(cartArray);
+  localStorage.setItem('selected books', strigcartArr);
+}
+// get arry from local storage books arry
+function getStorageData() {
+  let data = localStorage.getItem('selected books');
+  let parseArr = JSON.parse(data);
+  if (parseArr !== null) {
+    cartArray = parseArr;
+  }
+}
+getStorageData();
+    
+    
+    
+    
+    
+    
+    
+    // 'use strict';
+// constructor updateReview function
+function updateReview(firstName, lastName, age, feedback) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.age = age;
+  this.feedback = feedback;
+  updateReview.all.push(this);
+
+
+}
+updateReview.all = [];
+let form = document.getElementById('info-form');
+form.addEventListener('submit', userReview);
+
+let feedbackarr = [];
+
+// add eventlistener to form
+function userReview(event) {
+  event.preventDefault();
+  let firstName = event.target.firstName.value;
+  let lastName = event.target.lastName.value;
+  let age = parseInt(event.target.age.value);
+  let feedback = event.target.feedback.value;
+  // eslint-disable-next-line new-cap
+  let addFeedback = new updateReview(firstName, lastName, age, feedback);
+ 
+  feedbackarr.push(addFeedback);
+  // localStorage.removeItem('selected books');
+  // table.textContent = '';
+  // eslint-disable-next-line no-undef
+//   Swal.fire({
+//     position: 'center',
+//     icon: 'success',
+//     title: Thank you ${firstName + ' ' + lastName} for purchase, The delivery department will contact you ,
+//     showConfirmButton: false,
+//     timer: 2000
+//   });
+  updateStorge();
+}
+//Saving from updateReview function
+function updateStorge() {
+  let storagearr = JSON.stringify(feedbackarr);
+  localStorage.setItem('userfeedback', storagearr);
+  // updateReview.all = JSON.parse(updateReview.all);
+}
+function getData() {
+  let data = localStorage.getItem('userfeedback');
+  let parseArr = JSON.parse(data);
+  if (parseArr !== null) {
+    feedbackarr = parseArr;
+  }
+}
+getData();
+let table = document.getElementById('table');
+function getStorageData() {
+  let cartItem = JSON.parse(localStorage.getItem('selected books'));
+   
+  if (cartItem !== null) {
+    let trhead = document.createElement('tr');
+    table.appendChild(trhead);
+    let imgHead = document.createElement('th');
+    let nameHead = document.createElement('th');
+    let priceHead = document.createElement('th');
+    let quantityHead = document.createElement('th');
+    let actionHead = document.createElement('th');
+    trhead.appendChild(imgHead);
+    trhead.appendChild(nameHead);
+    trhead.appendChild(priceHead);
+    trhead.appendChild(quantityHead);
+    trhead.appendChild(actionHead);
+    imgHead.textContent = 'Image of the book';
+    nameHead.textContent = 'Book name';
+    priceHead.textContent = 'Price';
+    quantityHead.textContent = 'Remove';
+    actionHead.textContent = 'Quantity';
+    for (let i = 0; i < cartItem.length; i++) {
+      
+      let trItem = document.createElement('tr');
+      table.appendChild(trItem);
+      let thImage1 = document.createElement('td');
+      trItem.appendChild(thImage1);
+      let thImage = document.createElement('img');
+      thImage1.appendChild(thImage);
+      thImage.setAttribute('src', cartItem[i].src);
+      let thName = document.createElement('td');
+      trItem.appendChild(thName);
+      thName.textContent = cartItem[i].name;
+      let thPrice = document.createElement('td');
+      trItem.appendChild(thPrice);
+      thPrice.textContent = `${cartItem[i].price} JD`;
+      let thButton = document.createElement('td');
+      trItem.appendChild(thButton);
+      let input = document.createElement('button');
+      thButton.appendChild(input);
+      input.textContent = 'Clear';
+      input.addEventListener('click', clear);
+
+      function clear(event) {
+        input.onClick = document.location.reload();
+
+        localStorage.removeItem('selected books');
+
+        let selectedItem = cartItem.indexOf(cartItem[i])
+        cartItem.splice(selectedItem, 1);
+        localStorage.setItem('selected books', JSON.stringify(cartItem));
+      }
+
+      let thQuantity = document.createElement('td');
+      trItem.appendChild(thQuantity);
+      thQuantity.textContent= cartItem[i].quantity;
+    }
+  }
+}
+
+getStorageData();
+    
+    
+    
+    // 'use strict';
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// eslint-disable-next-line no-unused-vars
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// eslint-disable-next-line no-unused-vars
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+
+  let slides = document.getElementsByClassName('mySlides');
+  let dots = document.getElementsByClassName('dot');
+  if (n > slides.length) {slideIndex = 1;}
+  if (n < 1) {slideIndex = slides.length;}
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = 'none';
+  }
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(' active', '');
+  }
+  slides[slideIndex-1].style.display = 'block';
+  dots[slideIndex-1].className += ' active';
+}
+
+
+let storgeReview = JSON.parse(localStorage.getItem('userfeedback'));
+
+
+function getStorageData() {
+
+  let cartItem = JSON.parse(localStorage.getItem('userfeedback'));
+  if (cartItem !== null) {
+    for (let i = 0; i < cartItem.length; i++) {
+      Review = document.getElementById('Review');
+      let userReview = document.createElement('p');
+      Review.appendChild(userReview);
+      userReview.textContent = cartItem[i].firstName + '  ' + cartItem[i].lastName;
+
+      let Elbrement = document.createElement('br');
+      Review.appendChild(Elbrement);
+
+      let feedback = document.createElement('p');
+      Review.appendChild(feedback);
+      feedback.textContent = cartItem[i].feedback;
+
+      let heElement = document.createElement('hr');
+      Review.appendChild(heElement);
+
+    }
+
+  }
+
+}
+
+
+// review
+let Review = document.getElementById('Review');
+let userReview = document.createElement('p');
+Review.appendChild(userReview);
+
+storgeReview = JSON.parse(localStorage.getItem('userfeedback'));
+
+
+getStorageData();
+    
+    
+    
+    
+    
+    
+  var books,books1;
+    books=5;
+    
+    books1= parseInt(books);
+ if (books>4) {
+     window.alert("congradulation..\n you can choos free book");
+
+
+    var name;
+    name = window.prompt("Please enter the name of the book");
+    }
+    
+                </script>
+               
+                <style type="text/css">
+
+*{margin: 0;
+padding: 0;
+font-size:1.03em;
+font-family: inherit;}
+
+body{background-color: #eeeeee;}
+
+/* --------- menu--------------*/
+
+ 
+.menu{
+    
+   width: 100%;
+    background-color :#333333;
+    color: #ffffff;
+   height: 60px;
+}
+.menu #logo {
+    
+   float: left;
+    height: 30px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    line-height: 30px;
+}
+
+.menu > ul {
+    margin: 0;
+    padding: 0;
+      float: left; 
+    list-style-type: none;
+    
+}
+
+.menu >ul > li{
+  float: left; 
+    
+    
+}
+.item {
+ display: inline-block;   
+  padding: 15px 20px;  
+    line-height: 30px;
+color: aliceblue;
+    text-decoration: none;
+}
+.item:hover {
+background-color: #ff0055;
+}
+#rmenu{float: right;}
+                    
+                     .div{font-family: fantasy; color: #eee;font-size:18px}
+                    .div>a:hover{background-color: #ff0055;
+                    text-decoration:underline;
+                    color: #eee;}
+        
+                </style>
+
+                </head>
+            <body style="background-color: #eee;">
+
+                <nav class="menu">
+                  <div id="logo"><p style="color: #ff0055; font-size:40px; ">Jordan</p></div>
+
+                    <ul id="rmenu">
+                        <li ><a class="item" href="JORDAN.html" >About</a></li>
+                          <li><a  class="item" href="kings.html" >kings</a></li>
+                        <li><a  class="item" href="History.html" >History</a></li>
+                        <li><a class="item"  href="Cities.html" >Cities</a></li>
+<li ><a class="item" href="photos.html" >photos</a></li>
+                    </ul>
+                </nav>
+                
+  <div class="div" style="background-color:#333; float: left;  padding:5px ; margin: 15px; height: 75%; text-align: justify;  "> <br><br><br> <a style="color: #eee;  text-decoration:none;" href="#rawan">The Hashemite Kingdom</a> <br><br><br> <a style="color: #eee;  text-decoration:none;" href="#rawan1">Etymology</a>
+                <br><br><br>
+                    <a style="color: #eee;  text-decoration:none;" href="#rawan2">The map of cities</a><br><br><br>
+                  <a style="color: #eee;  text-decoration:none;" href="#rawan3">Islamic era</a><br><br><br>
+                  <a style="color: #eee;  text-decoration:none;" href="#rawan4">Modern era</a><br><br><br>
+                
+                </div>
+             <br>
+               <center> <fieldset style="color: #ff0055; font-size: 25px; padding-left:  2%; margin-right: 50%"> <legend style="color: #000;">welcoming</legend>
+                <script> 
+                    document.writeln("Hello\t"+name+"\t,\tHow Are You\t...? "); </script></fieldset></center>
+<br><br>
+  <p id="rawan"style="font-family:monospace; font-size: 15px" ><h2 style="color: #ff0055; font-size:30px; ">The Hashemite Kingdom of Jordan:</h2><br> <strong style="color: #ff0055; font-size: 20px;"> *</strong> is a country in Western Asia. It is situated at the crossroads of Asia, Africa and Europe, within the Levant region, on the East Bank of the Jordan River.<br>
+                
+                Jordan is bordered by Saudi Arabia, Iraq, Syria, palestine and the West Bank of Palestine. The Dead Sea is located along its western borders, and the country has a 26-kilometer (16 mi) coastline on the Red Sea in its extreme south-west. Amman is the nation's capital and largest city, as well as the economic, political and cultural center.
+<br>
+Modern-day Jordan has been inhabited by humans since the Paleolithic period. Three stable kingdoms emerged there at the end of the Bronze Age: Ammon, Moab and Edom. Later rulers include the Nabataean Kingdom, the Persian Empire, the Roman Empire, the Rashidun, Umayyad, and Abbasid Caliphates, and the Ottoman Empire. After the Great Arab Revolt against the Ottomans in 1916 during World War I, the Ottoman Empire was partitioned by Britain and France.<br> The Emirate of Transjordan was established in 1921 by the Hashemite, then Emir, Abdullah I, and the emirate became a British protectorate. In 1946, Jordan became an independent state officially known as the Hashemite Kingdom of Transjordan,Jordan is a founding member of the Arab League and the Organization of Islamic Co-operation. The sovereign state is a constitutional monarchy, but the king holds wide executive and powers.<br>
+
+Jordan is a semi-arid country, covering an area of ​​89,342 km2 (34,495 sq mi), with a population of 10 million, making it the eleventh-most populous Arab country. The dominant majority, or around 95% of the country's population, is Sunni Muslim, with an indigenous Christian minority. Jordan has been repeatedly referred to as an "oasis of stability" in the turbulent region of the Middle East.<br> It has been mostly unscathed by the violence that swept the region following the Arab Spring in 2010. From as early as 1948, Jordan has accepted refugees from multiple neighboring countries in conflict. An estimated 2.1 million Palestinian and 1.4 million Syrian refugees are present in Jordan as of a 2015 census. While Jordan continues to accept refugees.
+<br><br>
+Jordan ranks high in the Human Development Index, and has an upper middle income economy. The Jordanian economy, one of the smallest economies in the region, is attractive to foreign investors based upon a skilled workforce. The country is a major tourist destination, also attracting medical tourism due to its well developed health sector. Nonetheless, a lack of natural resources, large flow of refugees and regional turmoil have hampered economic growth.</p> <br> <hr > 
+            <br>   <br>
+                
+          <p id="rawan1"style="font-family:cursive; font-size: 25px" > <center><h1 style="margin: 0px; font-size: 30px; 
+              color: #ff0055;">Etymology: </h1></center>
+                
+                <br>
+               <p style="font-size: 20px"> Jordan takes its name from the Jordan River which forms much of the country's northwestern border.While several theories for the origin of the river's name have been proposed, it is most plausible that it derives from the Semitic word Yarad, meaning "the descender", reflecting the river's declivity.Much of the area that makes up modern Jordan was historically called Transjordan, meaning "across the Jordan", used to denote the lands east of the river.<br> <br>The Old Testament refers to the area as "the other side of the Jordan".Early Arab chronicles referred to the river as Al-Urdunn, corresponding to the Semitic Yarden. Jund Al-Urdunn was a military district around the river in the early Islamic era. Later, during the Crusades in the beginning of the second millennium.
+                
+                </p>
+                <br>
+                <br>        
+              
+               
+                <p id="rawan3" style="font-size:30px;">*Islamic era:
+                    <br> <br>
+                 <p style="font-size: 20px">
+                In 629 AD, during the Battle of Mu'tah in what is today Al-Karak, the Byzantines and their Arab Christian clients, the Ghassanids, staved off an attack by a Muslim Rashidun force that marched northwards towards the Levant from the Hejaz (in modern-day Saudi Arabia).<br>
+                The Byzantines however were defeated by the Muslims in 636 AD at the decisive Battle of Yarmouk just north of Transjordan,Transjordan was an essential territory for the conquest of Damascus,The first, or Rashidun, caliphate was followed by that of the Ummayads (661–750).
+                <br>
+                Under the Umayyad Caliphate, several desert castles were constructed in Transjordan, including: Qasr Al-Mshatta and Qasr Al-Hallabat.The Abbasid Caliphate's campaign to take over the Umayyad's began in Transjordan.
+                     <br>
+                </p></p> 
+<br>
+              <p id="rawan4" style="font-size:30px;">*Modern era:
+                    <br> <br>
+                 <p style="font-size: 20px">
+                Four centuries of stagnation during Ottoman rule came to an end during World War I by the 1916 Arab Revolt, driven by long-term resentment towards the Ottoman authorities and growing Arab nationalism. Saudi Arabia).<br>
+               The revolt was led by Sharif Hussein of Mecca, and his sons Abdullah, Faisal and Ali, members of the Hashemite family of the Hejaz, descendants of the Prophet Muhammad,Locally, the revolt garnered the support of the Transjordanian tribes, including Bedouins, Circassians and Christians.
+                <br>
+               The Allies of World War I, including Britain and France, whose imperial interests converged with the Arabist cause, offered support,The revolt started on 5 June 1916 from Medina and pushed northwards until the fighting reached Transjordan in the Battle of Aqaba on 6 July 1917.
+                     <br>
+                </p></p> 
+<br>
+                
+                
+                
+                
+                
+                
+                 <hr> 
+                <br>
+                
+             <center id="rawan2" >  <img  src="jordan1.png" width="550px" usemap="#X"></center> 
+<map name="X">
+<area shape="rect" coords="898,4,0,868" href="Cities.html">
+
+
+</map>
+                  <br>
+                   <hr> 
+                
+                
+                
+                
+                
+              
+                <div class="div" style="background-color:#333; float:bottom;  padding:5px ; margin: 15px; height: 25%; text-align: justify;  ">
+                   
+                <center> <p style="font-family: cursive; font-size: 15px; margin:25px; ">if ypu want to contact me:</p> <a href="mailto:rawanabuzerr@gmail.com"><img src="outlook.png"> </a></center>
+                <br>
+                <center><p style="font-family: cursive; font-size: 15px">All rights reserved <strong style="font-family: cursive; font-size: 20px">&copy;</strong></p></center>
+                    
+                </div>
+                
+                 
+                
+                
+                
+                
+                
+                </body>
+
+
+
+
+            </html>
